@@ -16,6 +16,7 @@ Ante esta situación, la Red de bibliotecas públicas de Cali y la Universidad A
 - PostgreSQL
 - MongoDB 
 - p5.js
+- arduino nano
 
 ## Restricciones
 
