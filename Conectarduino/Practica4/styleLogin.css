@@ -1,0 +1,242 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@200&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap");
+:root {
+  --color-primary: #594f8d;
+  --color-black: #090909;
+  --color-white: #ffffff;
+  --color-grey: #a0a0a0;
+  --color-light-grey: #f3f3f3;
+  --color-dark-grey: #353535;
+
+  --text-color: var(--color-black);
+
+  --font-family-base: "Josefin Sans", sans-serif;
+  --font-family-title: "Josefin Sans", sans-serif;
+
+  --section-header-padding: 0 0 3rem;
+
+  --button-display: inline-block;
+  --button-padding: 1.5rem 3rem;
+  --button-border: var(--color-primary) solid 0.2rem;
+  --button-color: var(--color-black);
+  --button-text-decoration: none;
+  --button-font-size: var(--font-size-large);
+  --button-hover-color: var(--color-white);
+  --button-hover-text-decoration: none;
+  --button-hover-background: var(--color-primary);
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 100%;
+}
+body {
+  margin: auto;
+  padding: 0;
+  background: url(./images/kids_undraw_play.png) no-repeat;
+  background-position: 50px 0px;
+  background-size: contain;
+  font-family: "Josefin Sans";
+  height: 100vh;
+  background-color: #ffffff;
+}
+
+.header {
+  padding: var(--header-padding);
+  position: relative;
+  z-index: 3;
+  background: transparent;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+span {
+  font-family: "Josefin Sans";
+}
+
+h1 {
+  font-family: "Karla", sans-serif;
+}
+
+.container {
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-hero {
+  position: relative;
+  margin-top: -8.5rem;
+}
+
+.section-hero .section-title {
+  margin-bottom: 5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-hero .section-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 50vh;
+}
+
+.section-hero .section-body {
+  padding: 10rem 4rem;
+}
+
+.section-hero .section-category {
+  color: rgb(78, 78, 78);
+  text-transform: uppercase;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 350%;
+}
+
+.section-title {
+  margin-top: 3rem;
+  font-size: 18px;
+  text-align: justify;
+}
+
+.form-group {
+  margin: 0;
+  width: 14%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button {
+  display: var(--button-display);
+  padding: var(--button-padding);
+  border: var(--button-border);
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--button-color);
+  text-decoration: var(--button-text-decoration);
+  font-family: "Josefin Sans";
+  border-radius: 20px;
+}
+
+.button:hover {
+  color: var(--button-hover-color);
+  text-decoration: var(--button-hover-text-decoration);
+  background: var(--button-hover-background);
+  transition-duration: var(--transition-duration);
+  transition-property: color, background-color;
+}
+
+.button-primary {
+  color: var(--color-white);
+  background: var(--color-primary);
+}
+
+.button-primary:hover {
+  color: black;
+  background: var(--color-white);
+}
+
+.background-login {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(41, 41, 41, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.login-box {
+  width: 320px;
+  height: 420px;
+  background: #f3f5f9;
+  color: rgb(2, 2, 2);
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  padding: 70px 30px;
+  display: none;
+  border-radius: 2rem;
+  box-shadow: 0 6px 10px 0 rgb(32, 32, 32);
+}
+
+.login-box .avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  position: absolute;
+  top: -50px;
+  left: calc(50% - 50px);
+}
+
+.login-box h1 {
+  margin: 0;
+  padding: 0 0 20px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.login-box label {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  display: block;
+  font-family: "Josefin Sans";
+}
+
+.login-box input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.login-box input[type="text"],
+.login-box input[type="password"] {
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: rgb(255, 255, 255);
+  border-radius: 15px;
+  outline: none;
+  height: 40px;
+  color: rgb(27, 27, 27);
+  font-size: 13px;
+}
+
+::placeholder {
+  opacity: 0.5;
+}
+
+.login-box input[type="submit"] {
+  border: none;
+  outline: none;
+  height: 40px;
+  background: #4b4276;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 20px;
+  font-family: "Josefin Sans";
+}
+
+.login-box input[type="submit"]:hover {
+  cursor: pointer;
+  background: #af8be3;
+  color: #000;
+}
+
+.login-box a {
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 20px;
+  color: darkgrey;
+}
+
+.login-box a:hover {
+  color: rgb(29, 29, 29);
+  text-decoration: underline;
+}

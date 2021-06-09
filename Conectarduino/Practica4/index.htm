@@ -1,0 +1,368 @@
+<html>
+   <head>
+       <!-- Configura la página Web -->
+       <meta charset="utf-8" />
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <title>Crear Historia</title>
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+       <!-- Importa librerías desde CDN -->
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
+       <script src="webm-writer-0.2.0.js"></script>
+       <script src="CCapture.all.min.js"></script>
+       <script src="./embuild/dist/h264-mp4-encoder.web.js"></script>
+       <script src="sketch.js"></script>
+       <script src="https://unpkg.com/h264-mp4-encoder/embuild/dist/h264-mp4-encoder.web.js"></script>
+       <!-- Importa librerías desde los assets -->
+       <script language="javascript" type="text/javascript" src="assets/lib/p5.serialport.js"></script>
+       <!-- Código de la práctica -->
+       <!--<script language="javascript" type="text/javascript" src="app/practica4.js"></script>-->
+       <link rel="stylesheet" href="Historia.css" />
+       <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+   </head>
+   <body>
+    <div class="o-nav">
+        <div class="o-title">
+            <h3>TITULO</h3>
+        </div>
+        <div class="o-arrows">
+            <img class="o-arrow" src="images/undo.png" alt="">
+            <img class="o-arrow" src="images/redo.png" alt="">
+        </div>
+        <div class="o-icons">
+            <img class="o-icon" src="images/save.png" alt="">
+            <img class="o-icon" src="images/delete.png" alt="">
+            <img class="o-icon" src="images/VolumeUp.png" alt="">
+        </div>
+    </div>
+    
+    <div class="o-cards">
+        <button class="o-card" onclick="CambiarEscenario()" >
+            <img class="o-img-card" src="images/escenario.png" alt="">
+            <h2>Agregar</h2>
+            <h2>Escenario</h2>
+        </button>
+        <button class="o-card" onclick="SelecAnimacion()">
+            <img class="o-img-card" src="images/animation.png" alt="">
+            <h2>Cambiar</h2>
+            <h2>Animación</h2>
+        </button>
+        <button id= 'per' class="o-card" onclick="SelecPersonaje()">
+            <img class="o-img-card" src="images/personaje.png" alt="">
+            <h2>Agregar</h2>
+            <h2>Personaje</h2>
+        </button>
+        <button class="o-card" id="grabar">
+            <img class="o-img-card" src="images/escena.png" alt="">
+            <!--<h2>Grabar</h2>
+            <h2>Escena</h2>-->
+        </button>
+        <button class="o-card">
+            <img class="o-img-card" src="images/voz.png" alt="">
+            <h2>Grabar voz</h2>
+        </button>      
+
+        <div id="canvasDiv"></div>
+
+    </div>
+
+                    
+                            
+                            <script>
+
+const frate = 30 // frame rate
+const numFrames = 100 // num of frames to record
+let recording = true
+let graphics;
+function setup() {
+const myCanvas = createCanvas(1000, 450);
+    myCanvas.position(200,50);
+   myCanvas.parent('canvasDiv');
+
+   frameRate(frate)
+   const B_Grabar = createButton('Grabar Escena');
+   B_Grabar.style('background-color', 'transparent')
+   B_Grabar.style('border-radius', '0.5rem')
+   B_Grabar.style('border-style', 'none')
+   B_Grabar.parent('grabar');
+   B_Grabar.mousePressed(record)
+   anim(0) // display first frame
+    // Crea un objeto del tipo SerialPort
+ serial = new p5.SerialPort();
+
+// Determina el método que se llama para listar los puertos seriales conectados
+serial.list();
+serial.on('list', portList);
+
+// Abre la conexión con el puerto donde está conectado el Arduino
+serial.open(port);
+
+// Determina el método que se llama cuando hay datos en el puerto
+serial.on('data', getData);
+
+element.addEventListener("click", () => {
+   SelecPersonaje();
+});
+
+}                      
+
+
+   function anim(count) {
+   //background(220);
+   textSize(28);
+   textAlign(CENTER, BOTTOM);   
+   text(count, width / 1.04 , height);
+}
+function record() {
+   HME.createH264MP4Encoder().then(async encoder => {
+       encoder.outputFilename = 'Historia';
+       encoder.width = 1000;
+       encoder.height = 450;
+       encoder.frameRate = frate;
+       encoder.kbps = 50000; // video quality
+       encoder.groupOfPictures = 10; // lower if you have fast actions.
+       encoder.initialize();
+
+       for (let i = 0; i < numFrames; i++) {
+           anim(i)
+           encoder.addFrameRgba(drawingContext.getImageData(0, 0, canvas.width, canvas.height).data)
+           await new Promise(resolve => window.requestAnimationFrame(resolve))
+       }
+
+       encoder.finalize()
+       if (recording) {
+           const uint8Array = encoder.FS.readFile(encoder.outputFilename);
+           const anchor = document.createElement('a')
+           anchor.href = URL.createObjectURL(new Blob([uint8Array], { type: 'video/mp4' }))
+           anchor.download = encoder.outputFilename
+           anchor.click()
+       }
+       encoder.delete()
+   })
+}
+
+
+// Declara el objeto de "SerialPort" que se va a utilizar
+var serial;
+var port = "COM9"; // variable que indica el puerto serial utilizado por el Arduino
+var backgroundColor = "rgb(255,255,255)"; // variable donde se almacena el color de fondo
+var Escenarios;
+var Aly = 0;
+var gif_loadImg, gif_createImg;
+var Laura = [];
+var Stanley = [];
+var Sidney = [];
+var Personajes = [Laura, Stanley, Sidney];
+let personaje;
+let i = 0;
+var index= 0;
+let j = 0;
+let animacion;
+const element = document.getElementById("per");
+
+function preload() {
+  Laura[0] = createImg(
+    "./images/Contenido Multimedia/Personajes/Laura/Caminar-DER/Caminar.gif"
+  );
+  Laura[1] = createImg(
+    "./images/Contenido Multimedia/Personajes/Laura/Caminar-IZQ/Caminar-IZQ.gif"
+  );
+  Laura[2] = createImg(
+    "./images/Contenido Multimedia/Personajes/Laura/Saltar/Saltar.gif"
+  );
+
+  Stanley[0] = createImg(
+    "./images/Contenido Multimedia/Personajes/Stanley/Walk-R/Caminar-DER.gif"
+  );
+  Stanley[1] = createImg(
+    "./images/Contenido Multimedia/Personajes/Stanley/Walk-L/Caminar-IZQ.gif"
+  );
+  Stanley[2] = createImg(
+    "./images/Contenido Multimedia/Personajes/Stanley/Jump-R/Saltar-DER.gif"
+  );
+  Stanley[3] = createImg(
+    "./images/Contenido Multimedia/Personajes/Stanley/Jump-L/Saltar-IZQ.gif"
+  );
+
+  Sidney[0] = createImg(
+    "./images/Contenido Multimedia/Personajes/Sidney/Walking R/Caminar-DER.gif"
+  );
+  Sidney[1] = createImg(
+    "./images/Contenido Multimedia/Personajes/Sidney/Walking L/Caminar-IZQ.gif"
+  );
+  Sidney[2] = createImg(
+    "./images/Contenido Multimedia/Personajes/Sidney/Jump-R/Saltar-DER.gif"
+  );
+  Sidney[3] = createImg(
+    "./images/Contenido Multimedia/Personajes/Sidney/Jump-L/Saltar-IZQ.gif"
+  );
+
+  Escenarios = backgroundColor;
+  //gif_loadImg = loadImage("./images/Contenido Multimedia/Personajes/Laura/Caminar-DER/Caminar.gif");
+  //gif_createImg = createImg("./images/Contenido Multimedia/Personajes/Laura/Caminar-DER/Caminar.gif");
+}
+
+// Método que muestra por consola los puertos seriales conectados al PC
+function portList(ports) {
+ console.log('Listado de puertos seriales:');
+ // recorre el listado de puertos seriales y los muestra por consola
+ for (var i = 0; i < ports.length; i++) {
+ 	console.log(ports[i]);
+ }
+}
+
+// Método que llama al recibir datos desde el puerto serial
+function getData() {
+   var data = serial.readStringUntil("\r\n");// lee los datos desde el puerto serial
+   trim(data);                	// elimina los espacios en blanco al principio y final de los datos, si los hay
+   if (!data) return;         	// si los datos leídos están vacíos no hace nada
+   console.log(data);         	// muestra los datos leídos
+
+   if(data == "Escenas"){
+        CambiarEscenario();
+    }else if(data == "Personajes"){
+        SelecPersonaje();
+    }else if(data == "Acciones"){
+        SelecAnimacion();
+    }else if(data == "GrabEsc"){
+        record();
+    }else if(data == "GrabVoz"){
+
+    }
+}
+
+var n = 0
+
+function draw() {
+ 
+ background(Escenarios);
+ //background(150);
+}
+
+function CambiarEscenario() {
+  Aly++;
+  if (Aly == 1) {
+    Escenarios = loadImage(
+      "./images/Contenido Multimedia/Escenarios/Escena1.jpg"
+    );
+  } else if (Aly == 2) {
+    Escenarios = loadImage(
+      "./images/Contenido Multimedia/Escenarios/Escena2.jpg"
+    );
+  } else if (Aly == 3) {
+    Escenarios = loadImage(
+      "./images/Contenido Multimedia/Escenarios/Escena3.jpg"
+    );
+  } else if (Aly > 3) {
+    Aly = 1;
+    Escenarios = loadImage(
+      "./images/Contenido Multimedia/Escenarios/Escena1.jpg"
+    );
+  }
+}
+
+function SelecAnimacion() {
+  /*
+  i++;
+  if (i == 1) {
+    personaje = Stanley[0].position(300, 20);
+  } else if (i == 2) {
+    Stanley[i-2].remove();
+    personaje = Stanley[1].position(300, 20);
+  } else {
+    i = 0;
+  }*/
+  if (animacion) {
+    animacion.position(1000,1000);
+  }
+  animacion = personaje[j].position(300, 20);
+  
+
+  
+  //console.log(j);
+  j++;
+  if (j >= personaje.length) {
+    j = 0;
+  }
+
+}
+
+// function selectStanley() {
+//   if (personaje) {
+//     personaje.remove();
+//   }
+//   personaje = Stanley[i].position(300, 20);
+//   i++;
+//   if (i >= Stanley.length) {
+//     i = 0;
+//   }
+// }
+
+// function selectLaura() {
+//   if (i > 0) {
+//     Laura[i-1].remove();
+//   }
+//   personaje = Laura[i].position(300, 20);
+//   i++;
+//   if (i >= Laura.length) {
+//     i = 0;
+//   }
+// }
+
+// function selectSidney() {
+//   if (i > 0) {
+//     Sidney[i-1].remove();
+//   }
+//   personaje = Sidney[i].position(300, 20);
+//   i++;
+//   if (i >= Sidney.length) {
+//     i = 0;
+//   }
+// }
+
+function SelecPersonaje() {
+  // if (personaje) {
+  //   personaje.remove();
+  // }
+  // personaje = Personajes[i][j].position(300, 20);
+  if (i == Personajes.length) {
+    i = 0;
+  }
+  personaje = Personajes[i];
+  j = 0;
+  //console.log(i);
+  SelecAnimacion();
+  
+  i++;
+  
+  
+  // if (i == Personajes.length) {
+  //   i = 0;
+  //   console.log(i);
+  // }
+}
+                            </script>
+
+                                    
+
+
+    <div class="o-timer">
+        <div class="o-time">
+            <h3 class="o-title-time" id="time">0:00</h3>
+            <h3 class="o-title-time">0:00</h3>
+        </div>
+    </div>
+
+
+    <div class="o-record">
+        <div class="o-record-video">
+            <img class="o-img-record" src="images/cam.png" alt="">
+        </div>
+        <div class="o-record-voice">
+            <img class="o-img-record" src="images/mic.png" alt="">
+        </div>
+    </div>
+    
+   </body>
+</html>

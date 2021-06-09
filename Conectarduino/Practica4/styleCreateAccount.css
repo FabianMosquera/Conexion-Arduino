@@ -1,0 +1,143 @@
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap");
+
+body {
+  margin: auto;
+  padding: 0;
+  background-position: 50px 0px;
+  background-size: contain;
+  font-family: "Josefin Sans", sans-serif;
+  height: 100vh;
+  background-color: #f3f5f9;
+}
+
+.logout {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.o-btn-inverse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 5rem;
+  height: 2.5rem;
+  border: 1px solid #594f8d;
+  border-radius: 10px;
+  text-align: center;
+  margin: 1rem;
+  background: #594f8d;
+  color: #f3f5f9;
+  text-decoration: none;
+}
+
+.o-btn-inverse:hover {
+  background-color: #f3f5f9;
+  color: #594f8d;
+}
+
+.info {
+  text-align: center;
+  color: #717171;
+  font-size: 1rem;
+}
+
+.background-login {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(41, 41, 41, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.login-box {
+  width: 320px;
+  height: 340px;
+  background: #f3f5f9;
+  color: rgb(2, 2, 2);
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -20%);
+  box-sizing: border-box;
+  padding: 70px 30px;
+  border-radius: 2rem;
+  box-shadow: 0 6px 10px rgba(48, 48, 48, 0.3);
+}
+
+.login-box .avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  position: absolute;
+  top: -90px;
+  left: calc(50% - 72px);
+}
+
+.login-box h1 {
+  margin: 0;
+  padding: 0 0 20px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.login-box label {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  display: block;
+}
+
+.login-box input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.login-button {
+  margin-top: 1.5rem;
+}
+
+.login-box input[type="text"],
+.login-box input[type="password"] {
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: rgb(255, 255, 255);
+  border-radius: 15px;
+  outline: none;
+  height: 40px;
+  color: rgb(27, 27, 27);
+  font-size: 13px;
+}
+
+::placeholder {
+  opacity: 0.5;
+}
+
+.login-box input[type="submit"] {
+  border: none;
+  outline: none;
+  height: 40px;
+  background: #4b4276;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 20px;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+.login-box input[type="submit"]:hover {
+  cursor: pointer;
+  background: #af8be3;
+  color: #000;
+}
+
+.login-box a {
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 20px;
+  color: darkgrey;
+}
+
+.login-box a:hover {
+  color: rgb(29, 29, 29);
+  text-decoration: underline;
+}

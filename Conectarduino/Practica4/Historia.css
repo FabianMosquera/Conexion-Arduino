@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+body {
+  background-color: #f3f5f9;
+}
+
+.canvasDiv{
+    background-color: black;
+    align-items: center;
+}
+.o-nav{
+    display: flex;
+    height: 2rem;
+    width: 100%;
+    background-color: #594f8d;
+    margin: 0%;
+    border-bottom: 1px solid black;
+    }
+.o-title{
+    display: flex;
+    margin-top: 0.5rem;
+    margin-left: 1.5rem;
+}
+h3{
+    color: black;
+    font-size: 1rem;
+    
+}
+.o-arrows{
+    display: flex;
+    margin-top: 0.2rem;
+    margin-left: 10rem;
+
+}
+.o-arrow{
+    height: 24px;
+    width: 24px;
+    margin-right: 0.7rem;
+}
+.o-icons{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.15rem;
+    margin-left: 50rem;   
+}
+.o-icon{
+    height: 24px;
+    width: 24px;
+    margin-right: 0.7rem;
+}
+
+.o-cards{
+    display: flex;
+    flex-direction: column;
+}
+.o-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: .75rem;
+    height: 4rem;
+    width: 4.75rem;
+    margin: 1rem;
+    margin-left: 2rem;
+    box-shadow: 3px 3px 5px #999
+}
+.o-card:hover{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #594f8d;
+    border-radius: .75rem;
+    height: 4rem;
+    width: 4.75rem;
+    margin: 1rem;
+    margin-left: 2rem;
+    box-shadow: 3px 3px 5px #999
+}
+.o-img-card{
+    width: 36px;
+    height: 36px;
+    margin-bottom: .25rem;
+}
+h2{
+    font-size: .75rem;
+}
+.o-timer{    
+    height: 2rem;
+    width: 100%;
+    background-color: #594f8d;
+    margin: 0%;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    }
+ .o-time{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+}
+.o-title-time{
+    font-size: 1.2rem;
+}
+.o-record-video{
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    width: 7rem;
+    height: 3.5rem;
+}
+.o-record-voice{
+    border-right: 1px solid black;
+    width: 7rem;
+    height: 3.5rem;
+}
+.o-img-record{
+    width: 48px;
+    height: 48px;
+    margin-bottom: .25rem;
+    margin-left: 1.5rem;
+}
+.Prueba{
+    display: flex;
+    justify-content: flex-end;
+    height: 450px;
+    width: 1100px;
+    position: absolute;
+    right: 20px;
+    bottom: 145px;
+    margin-bottom: 1.5rem;
+    margin-right: 7rem;
+}
